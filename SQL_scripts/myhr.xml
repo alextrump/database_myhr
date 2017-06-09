@@ -1,0 +1,883 @@
+<?xml version="1.0" encoding="UTF-8"?><Db flnm="myhr" nm="myhr" ver="1.3.4">
+  <VerLbl/>
+  <VerNotes/>
+  <DefTblOpts/>
+  <DocFolder>/home/alextr</DocFolder>
+  <Sch Cm="" nm="kurylenko">
+    <Tbl UsSo="1" nm="absence_type">
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="Id_abs_type" nm="pkabsence_type"/>
+      <Cl au="1" df="nextval('kurylenko.inc_absence_type'::regclass)" nm="Id_abs_type" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="abs_name" nu="0">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="25" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="abs_descr" nu="0">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="100" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Trg del="0" eaRow="1" exBe="1" ins="1" nm="check_new_abs_type" upd="0">
+        <Sql>kurylenko.check_new_abs_type()</Sql>
+      </Trg>
+      <UniqueConstraints/>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="absences">
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="Id_absence" nm="pkabsences"/>
+      <Cl au="1" df="nextval('kurylenko.inc_absences'::regclass)" nm="Id_absence" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="Id_staff" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="date_in" nu="0">
+        <DT arr="0" ds="Date" en="" id="91" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="date_out" nu="0">
+        <DT arr="0" ds="Date" en="" id="91" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="description" nu="0">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="256" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="Id_abs_type" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Fk deAc="3" nm="fk_absences_absence_type" prLkCl="Id_abs_type" upAc="3">
+        <PrTb mn="0" nm="absence_type" oe="1" sch="kurylenko" zr="0"/>
+        <CdTb mn="1" nm="absences" oe="0" sch="kurylenko" zr="1"/>
+        <ClPr cdCl="Id_abs_type" prCl="Id_abs_type"/>
+      </Fk>
+      <Trg del="0" eaRow="1" exBe="1" ins="1" nm="check_new_absence" upd="0">
+        <Sql>kurylenko.check_new_absence()</Sql>
+      </Trg>
+      <UniqueConstraints/>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="doc_types">
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="Id_doctype" nm="pkdoc_types"/>
+      <Cl au="0" df="" nm="Id_doctype" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <UniqueConstraints/>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="documentation">
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="Id_doc" nm="pkdocumentation"/>
+      <Cl au="0" df="" nm="Id_doc" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="doc_date" nu="0">
+        <DT arr="0" ds="Date" en="" id="91" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="Id_doctype" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="Id_contr" nu="1">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="Id_stuff" nu="1">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Fk deAc="3" nm="fk_documentation_doc_types" prLkCl="Id_doctype" upAc="3">
+        <PrTb mn="0" nm="doc_types" oe="1" sch="kurylenko" zr="0"/>
+        <CdTb mn="1" nm="documentation" oe="0" sch="kurylenko" zr="1"/>
+        <ClPr cdCl="Id_doctype" prCl="Id_doctype"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_documentation_stuff" prLkCl="Id_staff" upAc="3">
+        <PrTb mn="0" nm="staff" oe="1" sch="kurylenko" zr="1"/>
+        <CdTb mn="1" nm="documentation" oe="0" sch="kurylenko" zr="1"/>
+        <ClPr cdCl="Id_stuff" prCl="Id_staff"/>
+      </Fk>
+      <UniqueConstraints/>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="necessary_skills">
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="Id_nec_skill" nm="pknecessary_skills"/>
+      <Cl au="1" df="nextval('kurylenko.inc_necessary_skills'::regclass)" nm="Id_nec_skill" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="Id_skill" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="Id_position" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Fk deAc="3" nm="fk_necessary_skills_positions" prLkCl="Id_position" upAc="3">
+        <PrTb mn="0" nm="positions" oe="1" sch="kurylenko" zr="0"/>
+        <CdTb mn="1" nm="necessary_skills" oe="0" sch="kurylenko" zr="1"/>
+        <ClPr cdCl="Id_position" prCl="Id_position"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_necessary_skills_skills" prLkCl="Id_skill" upAc="3">
+        <PrTb mn="0" nm="skills" oe="1" sch="kurylenko" zr="0"/>
+        <CdTb mn="1" nm="necessary_skills" oe="0" sch="kurylenko" zr="1"/>
+        <ClPr cdCl="Id_skill" prCl="Id_skill"/>
+      </Fk>
+      <Trg del="0" eaRow="1" exBe="1" ins="1" nm="insert_new_nec_skill" upd="0">
+        <Sql>kurylenko.insert_new_nec_skill()</Sql>
+      </Trg>
+      <UniqueConstraints/>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="person">
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="Id_person" nm="pkperson"/>
+      <Cl au="1" df="nextval('kurylenko.inc_primary'::regclass)" nm="Id_person" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="per_name" nu="0">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="15" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="per_surname" nu="0">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="15" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="birthday" nu="0">
+        <DT arr="0" ds="Date" en="" id="91" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="education" nu="0">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="45" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Trg del="0" eaRow="1" exBe="1" ins="1" nm="insert_new_person" upd="0">
+        <Sql>kurylenko.insert_new_person()</Sql>
+      </Trg>
+      <UniqueConstraints/>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="personal_skills">
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="Id_per_skils" nm="pkpersonal_skills"/>
+      <Cl au="1" df="nextval('kurylenko.inc_personal_skills'::regclass)" nm="Id_per_skils" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="Id_person" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="Id_skill" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Fk deAc="3" nm="fk_personal_skils_person" prLkCl="Id_person" upAc="3">
+        <PrTb mn="0" nm="person" oe="1" sch="kurylenko" zr="0"/>
+        <CdTb mn="1" nm="personal_skills" oe="0" sch="kurylenko" zr="1"/>
+        <ClPr cdCl="Id_person" prCl="Id_person"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_personal_skils_skills" prLkCl="Id_skill" upAc="3">
+        <PrTb mn="0" nm="skills" oe="1" sch="kurylenko" zr="0"/>
+        <CdTb mn="1" nm="personal_skills" oe="0" sch="kurylenko" zr="1"/>
+        <ClPr cdCl="Id_skill" prCl="Id_skill"/>
+      </Fk>
+      <Trg del="0" eaRow="1" exBe="1" ins="1" nm="insert_new_per_skill" upd="0">
+        <Sql>kurylenko.insert_new_per_skill()</Sql>
+      </Trg>
+      <UniqueConstraints/>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="positions">
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="Id_position" nm="pkpositions"/>
+      <Cl au="1" df="nextval('kurylenko.inc_positions'::regclass)" nm="Id_position" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="posit_name" nu="0">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="30" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="posit_description" nu="0">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="256" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="true" nm="exists" nu="0">
+        <DT arr="0" ds="Boolean" en="" id="16" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Trg del="0" eaRow="1" exBe="1" ins="1" nm="check_new_position" upd="0">
+        <Sql>kurylenko.check_new_position()</Sql>
+      </Trg>
+      <UniqueConstraints/>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="skills">
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="Id_skill" nm="pkskills"/>
+      <Cl au="1" df="nextval('kurylenko.inc_skill'::regclass)" nm="Id_skill" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="skill_name" nu="0">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="20" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="skill_description" nu="0">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="256" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Trg del="0" eaRow="1" exBe="1" ins="1" nm="check_new_skill" upd="0">
+        <Sql>kurylenko.check_new_skill()</Sql>
+      </Trg>
+      <UniqueConstraints/>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="staff">
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="Id_staff" nm="pkstuff"/>
+      <Cl au="1" df="nextval('kurylenko.inc_staff'::regclass)" nm="Id_staff" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="Id_person" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="Id_vacancy" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="date_in" nu="0">
+        <DT arr="0" ds="Date" en="" id="91" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="date_out" nu="1">
+        <DT arr="0" ds="Date" en="" id="91" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="Id_absence" nu="1">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Fk deAc="3" nm="fk_staff_absences" prLkCl="Id_absence" upAc="3">
+        <PrTb mn="0" nm="absences" oe="1" sch="kurylenko" zr="1"/>
+        <CdTb mn="1" nm="staff" oe="0" sch="kurylenko" zr="1"/>
+        <ClPr cdCl="Id_absence" prCl="Id_absence"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_staff_person" prLkCl="Id_person" upAc="3">
+        <PrTb mn="0" nm="person" oe="1" sch="kurylenko" zr="0"/>
+        <CdTb mn="1" nm="staff" oe="0" sch="kurylenko" zr="1"/>
+        <ClPr cdCl="Id_person" prCl="Id_person"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_staff_vacancies" prLkCl="Id_vacancy" upAc="3">
+        <PrTb mn="0" nm="vacancies" oe="1" sch="kurylenko" zr="0"/>
+        <CdTb mn="1" nm="staff" oe="0" sch="kurylenko" zr="1"/>
+        <ClPr cdCl="Id_vacancy" prCl="Id_vacancy"/>
+      </Fk>
+      <Trg del="0" eaRow="1" exBe="1" ins="0" nm="check_new_staff" upd="1">
+        <Sql>kurylenko.check_new_staff()</Sql>
+      </Trg>
+      <UniqueConstraints/>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="timeshift">
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="Id_tmshift" nm="pktimeshift"/>
+      <Cl au="0" df="" nm="Id_tmshift" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="work_date" nu="0">
+        <DT arr="0" ds="Date" en="" id="91" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="time_in" nu="0">
+        <DT arr="0" ds="Time" en="" id="92" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="time_out" nu="0">
+        <DT arr="0" ds="Time" en="" id="92" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="type_shit" nu="0">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="15" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="Id_staff" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Fk deAc="3" nm="fk_timeshift_staff" prLkCl="Id_staff" upAc="3">
+        <PrTb mn="0" nm="staff" oe="1" sch="kurylenko" zr="0"/>
+        <CdTb mn="1" nm="timeshift" oe="0" sch="kurylenko" zr="1"/>
+        <ClPr cdCl="Id_staff" prCl="Id_staff"/>
+      </Fk>
+      <UniqueConstraints/>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="vacancies">
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="Id_vacancy" nm="pkvacancies"/>
+      <Cl au="1" df="nextval('kurylenko.inc_vacancies'::regclass)" nm="Id_vacancy" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="date_in" nu="1">
+        <DT arr="0" ds="Date" en="" id="91" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="date_out" nu="1">
+        <DT arr="0" ds="Date" en="" id="91" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="Id_position" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="type" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Fk deAc="3" nm="fk_vacancies_positions" prLkCl="Id_position" upAc="3">
+        <PrTb mn="0" nm="positions" oe="1" sch="kurylenko" zr="0"/>
+        <CdTb mn="1" nm="vacancies" oe="0" sch="kurylenko" zr="1"/>
+        <ClPr cdCl="Id_position" prCl="Id_position"/>
+      </Fk>
+      <UniqueConstraints/>
+      <SchTrHis/>
+    </Tbl>
+    <Proc nm="add_absence(id_staff integer, date_in_s character varying, date_out_s character varying, abs_type integer, descr character varying)">
+      <src>CREATE OR REPLACE FUNCTION kurylenko.add_absence(id_staff integer, date_in_s character varying, date_out_s character varying, abs_type integer, descr character varying) 
+  RETURNS void AS 
+$$
+DECLARE
+    date_in date;
+    date_out date;
+BEGIN
+
+    SELECT to_date(date_in_s, 'YYYY-MM-DD') INTO date_in;
+    SELECT to_date(date_out_s, 'YYYY-MM-DD') INTO date_out;
+
+    INSERT INTO "kurylenko".absences ("Id_staff", date_in, date_out, "Id_abs_type", description)
+        VALUES (id_staff, date_in, date_out, abs_type, descr);
+
+END;
+$$
+  LANGUAGE plpgsql VOLATILE 
+  COST 100;</src>
+    </Proc>
+    <Proc nm="add_person_on_position(id_person integer, id_position integer, startdate character varying)">
+      <src>CREATE OR REPLACE FUNCTION kurylenko.add_person_on_position(id_person integer, id_position integer, startdate character varying) 
+  RETURNS void AS 
+$$
+DECLARE
+    opened_vac_by_position integer;
+    position_exists boolean;
+    new_vac_id integer;
+    last_fired date;
+BEGIN
+    --check whether this person is currently working. if yes - we do not allow him/her to take 2&gt; positions at one time
+    IF EXISTS (
+        SELECT "Id_staff"
+        FROM "kurylenko".staff
+        WHERE
+            "Id_person" = id_person AND
+            (date_out IS NULL OR
+            date_out &gt; to_date(startDate, 'YYYY-MM-DD'))
+    ) THEN RAISE EXCEPTION 'person is already working';
+    END IF;
+
+    --check whether this position exists
+    IF NOT EXISTS
+        (SELECT *
+            FROM "kurylenko".positions
+            WHERE
+                "Id_position" = id_position AND
+                exists = TRUE)
+        THEN RAISE EXCEPTION 'position does not exist';
+    END IF;
+
+    --check whether there is a vacancy for the chosen position
+    SELECT sum(type) INTO opened_vac_by_position
+        FROM "kurylenko".vacancies
+        WHERE "Id_position" = id_position
+        GROUP BY "Id_position";
+    IF opened_vac_by_position &lt;= 0
+        THEN RAISE EXCEPTION 'no vacancies on this position';
+    END IF;
+
+    --add this person on the chosen position
+    SELECT nextval('"kurylenko".inc_primary'::regclass) INTO new_vac_id;
+    INSERT INTO "kurylenko".vacancies ("Id_vacancy", type, date_in, "Id_position")
+        VALUES (new_vac_id, -1, to_date(startDate, 'YYYY-MM-DD'), id_position);
+
+    INSERT INTO "kurylenko".staff ("Id_person", "Id_vacancy", date_in)
+        VALUES (id_person, new_vac_id, to_date(startDate, 'YYYY-MM-DD'));
+END;
+$$
+  LANGUAGE plpgsql VOLATILE 
+  COST 100;</src>
+    </Proc>
+    <Proc nm="change_staff_position(id_person integer, id_staff integer, id_new_position integer, change_date character varying)">
+      <src>CREATE OR REPLACE FUNCTION kurylenko.change_staff_position(id_person integer, id_staff integer, id_new_position integer, change_date character varying) 
+  RETURNS void AS 
+$$
+BEGIN
+
+    EXECUTE "kurylenko".fire_staff(
+        id_staff,
+        change_date);
+
+    EXECUTE "kurylenko".add_person_on_position(
+        id_person,
+        id_new_position,
+        change_date);
+
+END;
+$$
+  LANGUAGE plpgsql VOLATILE 
+  COST 100;</src>
+    </Proc>
+    <Proc nm="check_new_abs_type()">
+      <src>CREATE OR REPLACE FUNCTION kurylenko.check_new_abs_type() 
+  RETURNS trigger AS 
+$$
+BEGIN
+
+IF char_length(NEW.abs_name) = 0
+THEN
+RAISE EXCEPTION 'invalid data. absence name length cant be 0';
+END IF;
+
+RETURN NEW;
+END;
+$$
+  LANGUAGE plpgsql VOLATILE 
+  COST 100;</src>
+    </Proc>
+    <Proc nm="check_new_absence()">
+      <src>CREATE OR REPLACE FUNCTION kurylenko.check_new_absence() 
+  RETURNS trigger AS 
+$$
+BEGIN
+
+IF NEW.date_in &gt; NEW.date_out
+THEN
+RAISE EXCEPTION 'invalid data. wrong dates';
+END IF;
+
+RETURN NEW;
+END;
+$$
+  LANGUAGE plpgsql VOLATILE 
+  COST 100;</src>
+    </Proc>
+    <Proc nm="check_new_position()">
+      <src>CREATE OR REPLACE FUNCTION kurylenko.check_new_position() 
+  RETURNS trigger AS 
+$$
+BEGIN
+
+IF char_length(NEW.posit_name) = 0
+THEN
+RAISE EXCEPTION 'invalid data. position name length cant be 0';
+END IF;
+
+RETURN NEW;
+END;
+$$
+  LANGUAGE plpgsql VOLATILE 
+  COST 100;</src>
+    </Proc>
+    <Proc nm="check_new_skill()">
+      <src>CREATE OR REPLACE FUNCTION kurylenko.check_new_skill() 
+  RETURNS trigger AS 
+$$
+BEGIN
+
+IF char_length(NEW.skill_name) = 0
+THEN
+RAISE EXCEPTION 'invalid data. skill name length cant be 0';
+END IF;
+
+RETURN NEW;
+END;
+$$
+  LANGUAGE plpgsql VOLATILE 
+  COST 100;</src>
+    </Proc>
+    <Proc nm="check_new_staff()">
+      <src>CREATE OR REPLACE FUNCTION kurylenko.check_new_staff() 
+  RETURNS trigger AS 
+$$
+BEGIN
+
+IF
+    NEW.date_out IS NOT NULL AND
+    OLD.date_in &gt; NEW.date_out
+THEN RAISE EXCEPTION 'invalid data. staff date_in cant be newer than date_out';
+END IF;
+
+RETURN NEW;
+END;
+$$
+  LANGUAGE plpgsql VOLATILE 
+  COST 100;</src>
+    </Proc>
+    <Proc nm="delete_last_vacancy(id_position integer, proc_date character varying)">
+      <src>CREATE OR REPLACE FUNCTION kurylenko.delete_last_vacancy(id_position integer, proc_date character varying) 
+  RETURNS void AS 
+$$
+DECLARE
+    opened_vac_count_by_position integer;
+    last_date date;
+BEGIN
+
+    SELECT SUM(type) INTO opened_vac_count_by_position
+        FROM "kurylenko".vacancies
+        WHERE "Id_position" = id_position;
+   
+    --check whether there are such vacancies 
+    IF opened_vac_count_by_position = 0
+        THEN RAISE EXCEPTION 'Wrong action.';
+    END IF;
+
+    --choose the last date (delete LAST vacancy opened))
+    SELECT min(date_in) INTO last_date
+        FROM (
+             SELECT * FROM "kurylenko".vacancies
+      WHERE type = 1 AND "Id_position" = id_position
+      ORDER BY date_in DESC
+      LIMIT opened_vac_count_by_position ) as open_vacancies;
+    
+    --check the date again
+    IF last_date &gt; to_date(proc_date, 'YYYY-MM-DD')
+        THEN RAISE EXCEPTION 'Wrong action.';
+    END IF;
+
+    --close the chosen vacancy
+    INSERT INTO "kurylenko".vacancies (type, date_out, "Id_position")
+        VALUES (-1, to_date(proc_date, 'YYYY-MM-DD'), id_position);
+
+END;
+$$
+  LANGUAGE plpgsql VOLATILE 
+  COST 100;</src>
+    </Proc>
+    <Proc nm="delete_position(id_position integer)">
+      <src>CREATE OR REPLACE FUNCTION kurylenko.delete_position(id_position integer) 
+  RETURNS void AS 
+$$
+DECLARE
+    staff_count_by_position integer;
+    opened_vac_count_by_posit integer;
+    iterator integer;
+BEGIN
+
+    SELECT count(*) INTO staff_count_by_position
+    FROM "kurylenko".staff staff
+    JOIN "kurylenko".vacancies vacancies
+      ON staff."Id_vacancy" = vacancies."Id_vacancy"
+    WHERE
+      staff.date_out IS NOT NULL AND vacancies."Id_position" = id_position;
+    
+    --we cannot delete position if at least 1 person works there
+    IF staff_count_by_position &gt; 0
+        THEN RAISE EXCEPTION 'Impossible action.';
+    END IF;
+
+    --delete open vacancies for the selected position; they are all opened, as we have checked that nobody takes them before
+    SELECT SUM(type) INTO opened_vac_count_by_posit
+        FROM "kurylenko".vacancies
+        WHERE "Id_position" = id_position;
+    SELECT 0 INTO iterator;
+    WHILE iterator &lt; opened_vac_count_by_posit
+        LOOP
+            iterator := iterator + 1;
+            SELECT "kurylenko".delete_last_vacancy(id_position, current_date);
+        END LOOP;
+
+    --close the position
+    UPDATE "kurylenko".positions
+        SET exists = FALSE
+        WHERE "Id_position" = id_position;
+
+END;
+$$
+  LANGUAGE plpgsql VOLATILE 
+  COST 100;</src>
+    </Proc>
+    <Proc nm="fire_staff(id_staff integer, fire_date character varying)">
+      <src>CREATE OR REPLACE FUNCTION kurylenko.fire_staff(id_staff integer, fire_date character varying) 
+  RETURNS void AS 
+$$
+DECLARE
+    date_start date;
+BEGIN
+
+    --check whether this staff exists
+    IF NOT EXISTS
+          (SELECT *
+           FROM "kurylenko".staff
+           WHERE "Id_staff" = id_staff)
+       THEN RAISE EXCEPTION 'Staff does not exist.';
+    END IF;
+
+    SELECT staffDoc.date_in INTO date_start 
+    FROM (
+        SELECT date_in
+        FROM "kurylenko".staff
+        WHERE "Id_staff" = id_staff AND date_out IS NULL --as our workers can only take one position at the moment
+    ) AS staffDoc;
+    
+    --check the date
+    IF date_start &gt; to_date(fire_date, 'YYYY-MM-DD')
+        THEN RAISE EXCEPTION 'Error. Staff cannot be fired before the work starts.';
+    END IF;
+
+    --fire staff
+    UPDATE "kurylenko".staff
+    SET date_out = to_date(fire_date, 'YYYY-MM-DD')
+    WHERE "Id_staff" = id_staff AND date_out IS NULL; --as our workers can only take one position at the moment
+
+END;
+$$
+  LANGUAGE plpgsql VOLATILE 
+  COST 100;</src>
+    </Proc>
+    <Proc nm="insert_new_nec_skill()">
+      <src>CREATE OR REPLACE FUNCTION kurylenko.insert_new_nec_skill() 
+  RETURNS trigger AS 
+$$
+BEGIN
+
+IF EXISTS(
+    SELECT "Id_nec_skill"
+        FROM "kurylenko".necessary_skills
+        WHERE
+            "Id_skill" = NEW."Id_skill" AND
+            "Id_position" = NEW."Id_position"
+        )
+THEN RAISE EXCEPTION 'invalid data. nec skill already exists';
+END IF;
+
+RETURN NEW;
+END;
+$$
+  LANGUAGE plpgsql VOLATILE 
+  COST 100;</src>
+    </Proc>
+    <Proc nm="insert_new_per_skill()">
+      <src>CREATE OR REPLACE FUNCTION kurylenko.insert_new_per_skill() 
+  RETURNS trigger AS 
+$$
+BEGIN
+
+IF EXISTS(
+    SELECT "Id_per_skils"
+        FROM "kurylenko".personal_skills
+        WHERE
+            "Id_person" = NEW."Id_person" AND
+            "Id_skill" = NEW."Id_skill"
+        )
+THEN RAISE EXCEPTION 'invalid data. pers skill already exists';
+END IF;
+
+RETURN NEW;
+END;
+$$
+  LANGUAGE plpgsql VOLATILE 
+  COST 100;</src>
+    </Proc>
+    <Proc nm="insert_new_person()">
+      <src>CREATE OR REPLACE FUNCTION kurylenko.insert_new_person() 
+  RETURNS trigger AS 
+$$
+BEGIN
+
+IF char_length(NEW.per_name) = 0 OR
+    char_length(NEW.per_surname) = 0 OR
+    char_length(NEW.education) = 0 OR
+    EXTRACT(YEAR from AGE(NEW.birthday)) &lt; 18
+THEN
+RAISE EXCEPTION 'invalid person data';
+END IF;
+RETURN NEW;
+END;
+$$
+  LANGUAGE plpgsql VOLATILE 
+  COST 100;</src>
+    </Proc>
+    <View nm="show_free_persons">
+      <Sql>SELECT
+    person.per_name,
+    person.per_surname,
+    person."Id_person"
+FROM kurylenko.person
+WHERE NOT (person."Id_person" IN ( SELECT staff."Id_person"
+FROM kurylenko.staff
+WHERE staff.date_out IS NULL))</Sql>
+    </View>
+    <View nm="show_positions">
+      <Sql>SELECT
+    positions.posit_name,
+    staffcount.count,
+    positions."Id_position"
+FROM kurylenko.positions positions LEFT
+    JOIN ( SELECT vacancies."Id_position",
+    count(*) AS count
+FROM kurylenko.vacancies vacancies
+    JOIN kurylenko.staff staff ON staff."Id_vacancy" = vacancies."Id_vacancy"
+WHERE staff.date_in &lt;= 'now'::text::date
+        AND (staff.date_out &gt; 'now'::text::date
+        OR staff.date_out IS NULL)
+GROUP BY vacancies."Id_position") staffcount ON positions."Id_position" = staffcount."Id_position"</Sql>
+    </View>
+    <View nm="show_shortstaffinfo">
+      <Sql>SELECT
+    staff."Id_staff",
+    person.per_name,
+    person.per_surname,
+    positions.posit_name
+FROM kurylenko.staff
+    JOIN kurylenko.person person ON staff."Id_person" = person."Id_person"
+    JOIN kurylenko.vacancies vacancies ON staff."Id_vacancy" = vacancies."Id_vacancy"
+    JOIN kurylenko.positions positions ON vacancies."Id_position" = positions."Id_position"</Sql>
+    </View>
+    <View nm="show_staff">
+      <Sql>SELECT
+    positions.posit_name,
+    persons.per_name,
+    persons.per_surname,
+    staff."Id_staff",
+    staff."Id_person",
+    staff."Id_vacancy",
+    vacancies."Id_position",
+    staff.date_in,
+    staff.date_out
+FROM kurylenko.staff staff
+    JOIN kurylenko.person persons ON staff."Id_person" = persons."Id_person"
+    JOIN kurylenko.vacancies vacancies ON staff."Id_vacancy" = vacancies."Id_vacancy"
+    JOIN kurylenko.positions positions ON vacancies."Id_position" = positions."Id_position"
+ORDER BY positions.posit_name</Sql>
+    </View>
+    <View nm="show_vacancies">
+      <Sql>SELECT
+    positions.posit_name,
+    sum(vacancies.type) AS sum,
+    vacancies."Id_position"
+FROM kurylenko.vacancies vacancies
+    JOIN kurylenko.positions positions ON vacancies."Id_position" = positions."Id_position"
+WHERE positions."exists" = true
+GROUP BY vacancies."Id_position",
+    positions.posit_name</Sql>
+    </View>
+    <Seq incr="1" nm="inc_absence_type"/>
+    <Seq incr="1" nm="inc_absences"/>
+    <Seq incr="1" nm="inc_necessary_skills"/>
+    <Seq incr="1" nm="inc_personal_skills"/>
+    <Seq incr="1" nm="inc_positions"/>
+    <Seq incr="1" nm="inc_primary"/>
+    <Seq incr="1" nm="inc_skill"/>
+    <Seq incr="1" nm="inc_staff"/>
+    <Seq incr="1" nm="inc_vacancies"/>
+    <CustomTypes/>
+  </Sch>
+  <Sch Cm="standard public schema" nm="public">
+    <CustomTypes/>
+  </Sch>
+  <Dgm nm="diagramA">
+    <RnCf ClkAct="true" FtSz="11" lkStgy="RightAngleStrategy" zm="1.0">
+      <VbCfg>
+        <Fg ky="Auto Number" vl="0"/>
+        <Fg ky="Check" vl="0"/>
+        <Fg ky="Comment" vl="0"/>
+        <Fg ky="Data Type" vl="1"/>
+        <Fg ky="Default" vl="0"/>
+        <Fg ky="ENUM Values" vl="0"/>
+        <Fg ky="Length" vl="1"/>
+        <Fg ky="Name" vl="1"/>
+        <Fg ky="Nullable" vl="0"/>
+        <Fg ky="Schema Name" vl="0"/>
+        <Fg ky="Signed" vl="0"/>
+      </VbCfg>
+    </RnCf>
+    <DiaProps>
+      <Show AllCols="1" FkCols="1" FkNms="1" PkCols="1"/>
+      <ErNotation>BarkerErNotation</ErNotation>
+      <DbTableRectangleFill>HeaderFooterFill</DbTableRectangleFill>
+      <svg path=""/>
+    </DiaProps>
+    <TbGl bkCl="ff6666ff" sch="kurylenko" tbl="absence_type" x="0" y="308"/>
+    <TbGl bkCl="ff6666ff" sch="kurylenko" tbl="absences" x="401" y="292"/>
+    <TbGl bkCl="ff6666ff" sch="kurylenko" tbl="doc_types" x="41" y="49"/>
+    <TbGl bkCl="ff6666ff" sch="kurylenko" tbl="documentation" x="403" y="50"/>
+    <TbGl bkCl="ff6666ff" sch="kurylenko" tbl="necessary_skills" x="1869" y="180"/>
+    <TbGl bkCl="ff6666ff" sch="kurylenko" tbl="person" x="1069" y="46"/>
+    <TbGl bkCl="ff6666ff" sch="kurylenko" tbl="personal_skills" x="1469" y="50"/>
+    <TbGl bkCl="ff6666ff" sch="kurylenko" tbl="positions" x="1415" y="172"/>
+    <TbGl bkCl="ff6666ff" sch="kurylenko" tbl="skills" x="1828" y="37"/>
+    <TbGl bkCl="ff6666ff" sch="kurylenko" tbl="staff" x="752" y="50"/>
+    <TbGl bkCl="ff6666ff" sch="kurylenko" tbl="timeshift" x="420" y="166"/>
+    <TbGl bkCl="ff6666ff" sch="kurylenko" tbl="vacancies" x="1073" y="172"/>
+    <FkGl bkCl="ff000000" childEdge="WEST" nm="kurylenko.absences.fk_absences_absence_type" parentEdge="EAST" positioner="OneLineUserLinkPositioner">
+      <positionableLines>
+        <positionableLine lineRole="SINGLE_LINE" x1="231" x2="401" y1="341" y2="341"/>
+      </positionableLines>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="WEST" nm="kurylenko.documentation.fk_documentation_doc_types" parentEdge="EAST" positioner="OneLineUserLinkPositioner">
+      <positionableLines>
+        <positionableLine lineRole="SINGLE_LINE" x1="228" x2="403" y1="69" y2="69"/>
+      </positionableLines>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="EAST" nm="kurylenko.documentation.fk_documentation_stuff" parentEdge="WEST" positioner="OneLineUserLinkPositioner">
+      <positionableLines>
+        <positionableLine lineRole="SINGLE_LINE" x1="752" x2="590" y1="96" y2="96"/>
+      </positionableLines>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="WEST" nm="kurylenko.necessary_skills.fk_necessary_skills_positions" parentEdge="EAST" positioner="OneLineUserLinkPositioner">
+      <positionableLines>
+        <positionableLine lineRole="SINGLE_LINE" x1="1671" x2="1869" y1="205" y2="205"/>
+      </positionableLines>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="NORTH" nm="kurylenko.necessary_skills.fk_necessary_skills_skills" parentEdge="SOUTH" positioner="OneLineUserLinkPositioner">
+      <positionableLines>
+        <positionableLine lineRole="SINGLE_LINE" x1="1931" x2="1931" y1="103" y2="180"/>
+      </positionableLines>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="WEST" nm="kurylenko.personal_skills.fk_personal_skils_person" parentEdge="EAST" positioner="OneLineUserLinkPositioner">
+      <positionableLines>
+        <positionableLine lineRole="SINGLE_LINE" x1="1298" x2="1469" y1="79" y2="79"/>
+      </positionableLines>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="EAST" nm="kurylenko.personal_skills.fk_personal_skils_skills" parentEdge="WEST" positioner="OneLineUserLinkPositioner">
+      <positionableLines>
+        <positionableLine lineRole="SINGLE_LINE" x1="1828" x2="1662" y1="70" y2="70"/>
+      </positionableLines>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="SOUTH" nm="kurylenko.staff.fk_staff_absences" parentEdge="EAST" positioner="TwoLineUserLinkPositioner">
+      <positionableLines>
+        <positionableLine lineRole="PARENT_LINE" x1="632" x2="852" y1="344" y2="344"/>
+        <positionableLine lineRole="CHILD_LINE" x1="856" x2="856" y1="155" y2="340"/>
+      </positionableLines>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="EAST" nm="kurylenko.staff.fk_staff_person" parentEdge="WEST" positioner="OneLineUserLinkPositioner">
+      <positionableLines>
+        <positionableLine lineRole="SINGLE_LINE" x1="1069" x2="941" y1="92" y2="92"/>
+      </positionableLines>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="SOUTH" nm="kurylenko.staff.fk_staff_vacancies" parentEdge="WEST" positioner="TwoLineUserLinkPositioner">
+      <positionableLines>
+        <positionableLine lineRole="PARENT_LINE" x1="1073" x2="918" y1="218" y2="218"/>
+        <positionableLine lineRole="CHILD_LINE" x1="914" x2="914" y1="155" y2="214"/>
+      </positionableLines>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="EAST" nm="kurylenko.timeshift.fk_timeshift_staff" parentEdge="SOUTH" positioner="TwoLineUserLinkPositioner">
+      <positionableLines>
+        <positionableLine lineRole="PARENT_LINE" x1="784" x2="784" y1="155" y2="246"/>
+        <positionableLine lineRole="CHILD_LINE" x1="633" x2="780" y1="250" y2="250"/>
+      </positionableLines>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="EAST" nm="kurylenko.vacancies.fk_vacancies_positions" parentEdge="WEST" positioner="OneLineUserLinkPositioner">
+      <positionableLines>
+        <positionableLine lineRole="SINGLE_LINE" x1="1415" x2="1262" y1="211" y2="211"/>
+      </positionableLines>
+    </FkGl>
+    <Notes/>
+    <Zones/>
+  </Dgm>
+  <RnmMgr NxRnmId="3">
+    <RnmCh ObjCls="Table" ParCls="Schema" ParNme="kurylenko" SupCls="" SupNme="">
+      <Rnm id="1" nNm="timeshift" oNm="timeshit"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="timeshift" SupCls="Schema" SupNme="kurylenko">
+      <Rnm id="2" nNm="Id_tmshift" oNm="Id_tmshit"/>
+    </RnmCh>
+  </RnmMgr>
+  <DbDocOptionMgr>
+    <BasicOptionMgr>
+      <Name>db.doc.option.mgr</Name>
+      <BoolOpt lbl="Diagrams" nm="doc.diagrams" on="1" spl="0"/>
+      <BoolOpt lbl="Foreign Keys" nm="doc.fks" on="1" spl="0"/>
+      <BoolOpt lbl="Indexes" nm="doc.indexes" on="1" spl="0"/>
+      <BoolOpt lbl="Overwrite CSS File" nm="doc.overwrite.css" on="1" spl="0"/>
+      <BoolOpt lbl="Procedures" nm="doc.procs" on="1" spl="0"/>
+      <BoolOpt lbl="Schemas" nm="doc.schemas" on="1" spl="0"/>
+      <BoolOpt lbl="Sequences" nm="doc.sequences" on="1" spl="0"/>
+      <BoolOpt lbl="Tables" nm="doc.tables" on="1" spl="0"/>
+      <BoolOpt lbl="Triggers" nm="doc.triggers" on="1" spl="0"/>
+      <BoolOpt lbl="Views" nm="doc.views" on="1" spl="0"/>
+    </BasicOptionMgr>
+  </DbDocOptionMgr>
+  <OpenEditors>
+    <OpenEditor ClsNm="Diagram" fqn="null.diagramA" selected="1"/>
+  </OpenEditors>
+  <TreePaths>
+    <TreePath/>
+  </TreePaths>
+  <SqlTexts/>
+</Db>
