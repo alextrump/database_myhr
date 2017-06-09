@@ -1,0 +1,66 @@
+#include "functions.h"
+
+bool inQStringList(QString item, QStringList list) {
+    if (list.length() == 0){
+        return false;
+    }
+    for(QStringList::iterator it = list.begin(); it != list.end(); ++it) {
+        QString current = *it;
+        if (current == item){
+            return true;
+        }
+    }
+    return false;
+}
+
+
+int searchIdByNameInModel(QString key, QSqlQueryModel* model, int idPosit, int keyPosit)
+{
+    int id = -1;
+    QModelIndex index;
+    int rowCount = model->rowCount();
+    for (int i=0; i < rowCount; i++)
+    {
+        index = model->index(i, keyPosit);
+        if ( key.compare(index.data(Qt::DisplayRole).toString()) == 0 )
+        {
+            index = model->index(i, idPosit);
+            id = index.data(Qt::DisplayRole).toInt();
+            break;
+        }
+    }
+    return id;
+}
+
+void table_column_entire_width(QTableView *table)
+{
+    for (int c = 0; c < table->horizontalHeader()->count(); ++c)
+    {
+        table->horizontalHeader()->setSectionResizeMode(
+                    c, QHeaderView::Stretch);
+    }
+}
+
+bool check_string(QString textt){
+    for (int i=0; i<textt.length(); i++){
+        QString tex = textt.mid(i,1);
+        bool ok = true;
+        tex.toInt(&ok);
+        if (!ok) return false;
+    }
+    return true;
+}
+
+
+void showMess(QString title, QString text)
+{
+    MessageBox msgBox;
+    msgBox.setWindowTitle(title);
+    msgBox.setText(text);
+    msgBox.setIcon(QMessageBox::Information);
+    msgBox.setStandardButtons(QMessageBox::Ok);
+    msgBox.setButtonText(QMessageBox::Ok, "OK (До закриття: 10 с)");
+    msgBox.setAutoClose(true);
+    msgBox.setTimeout(10);
+    msgBox.exec();
+}
